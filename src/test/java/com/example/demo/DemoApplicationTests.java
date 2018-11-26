@@ -72,12 +72,12 @@ public class DemoApplicationTests {
 		
 		//carro2.getColorRines().concat(" ******");
 		//carro2.setColorRines("blanco");
-		Optional<String> opt = Optional.of(carro2.getColorRines());
-		logger.info("Esta inicializado ?  -> " + opt.isPresent());// false
+		//Optional<String> opt = Optional.of(carro2.getColorRines());
+		//logger.info("Esta inicializado ?  -> " + opt.isPresent());// false
 		
-		logger.info("Prueba Objeto Carro -> " + opt.get().toString()); 
+		//logger.info("Prueba Objeto Carro -> " + opt.get().toString()); 
 		
-		assertTrue(opt.isPresent() == true);// si es verdadero pasa el test
+		//assertTrue(opt.isPresent() == true);// si es verdadero pasa el test
 				
 		
 	}
@@ -159,8 +159,45 @@ public class DemoApplicationTests {
 		
 	}
 	
+	/**
+	 * orElseThrow
+	 */
+	
+	@Test(expected = IllegalArgumentException.class)// test espera que bote una excepcion.
+	public void orElseThrow() {
+	    String nullName = null;
+	    String name = Optional.ofNullable(nullName).orElseThrow(IllegalArgumentException::new);
+	    		
+	    logger.info("orElseThrow" + name);
+	    		
+	}
 	
 	
+	@Test
+	public void get() {
+	    Optional<String> opt = Optional.ofNullable("prueba");
+	    String name = opt.get();
+	 
+	    logger.info("get " +name);
+	    
+	    //assertEquals("baeldung", name);
+	}
+	
+	@Test
+	public void filter() {
+	    Integer year = 2016;
+	    Optional<Integer> yearOptional = Optional.of(year);
+	    boolean is2016 = yearOptional.filter(anio -> anio == 2016).isPresent();
+	    //assertTrue(is2016);
+	    
+	    logger.info("filter (2016) " + is2016);
+	    
+	    boolean is2017 = yearOptional.filter(y -> y == 2017).isPresent();
+	    
+	    logger.info("filter (2017) " + is2017);
+	    
+	    //assertFalse(is2017);
+	}
 	
 	
 }
