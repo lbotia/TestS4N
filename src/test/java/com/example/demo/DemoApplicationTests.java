@@ -3,11 +3,14 @@ package com.example.demo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -270,11 +273,80 @@ public class DemoApplicationTests {
 		
 		
 	}
+	/**
+	 * Consumidores  acepta un argumento generado y no devuelve nada.
+	 */
+	
 	
 	@Test 
-	public double squareLazy(Supplier<Double> lazyValue) {
-		
-	    return Math.pow(lazyValue.get(), 2);
+	public void testConsumidores () {
+		Map<String, Integer> ages = new HashMap<>();
+		ages.put("John", 25);
+		ages.put("Freddy", 24);
+		ages.put("Samuel", 30);
+		 
+		ages.forEach((name, age) -> logger.info("Name " +name + " is " + age + " years old"));
+
 	}
+	
+	/**
+	 * predicate recibe un valor y devuelve un valor booleano.
+	 */
+	
+	@Test
+	public void testPredicate() {
+		List<String> names = Arrays.asList("Angela", "Aaron", "Bob", "Claire", "David");
+		 
+		List<String> namesWithA = names.stream().filter(name -> name.startsWith("A")).collect(Collectors.toList());
+		
+		logger.info("Test Predicate " +namesWithA);
+	}
+	
+	@Test 
+	public void testOperation () {
+		
+		List<String> names = Arrays.asList("bob", "josh", "megan");
+		 
+		names.replaceAll(String::toUpperCase);
+		
+		logger.info("test Operation : "+names);
+		
+	}
+	
+	@Test
+	public void testOperatioDos() {
+		List<Integer> values = Arrays.asList(3, 5, 8, 9, 12);
+		 
+		int sum = values.stream().reduce(0, (i1, i2) -> i1 + i2);
+		logger.info("test operation dos :" +sum);
+	}
+	
+	@Test
+	public void testFuntionHere() {
+		
+		Thread thread = new Thread(() -> System.out.println("Hello From Another Thread"));
+		
+		logger.info("heredar -> "+thread);
+		thread.start();
+		
+		
+		
+		
+	}
+	
+	
+//	@Test
+//	public void callsqueryLazy() {
+//		double res = squareLazy(0.0);
+//		logger.info("Res -> " + res);
+//		
+//		
+//	}
+//	
+//	
+//	public double squareLazy(Supplier<Double> lazyValue = ()) {
+//	    return Math.pow(lazyValue.get(), 2);
+//	}
+	
 	
 }
