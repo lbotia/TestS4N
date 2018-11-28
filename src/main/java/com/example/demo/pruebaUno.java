@@ -1,31 +1,27 @@
 package com.example.demo;
 
-import static org.junit.Assert.assertFalse;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.Optional;
-import java.util.logging.Logger;
 
-import org.junit.Test;
-import org.slf4j.LoggerFactory;
-
-public class pruebaUno {
+	
+@FunctionalInterface	
+public interface pruebaUno {
+	 
+		//solo define un unico metodo
 	
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+		Map<String, Integer> nameMap = new HashMap<>();
+		Integer value = nameMap.computeIfAbsent("Laura", s->s.length());
 		
-	private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(pruebaUno.class);
+		//return nameMap;
+	public double operar(double x, double y) ;
+		//public int operar2 ();
+		
+
+		 
+		//public byte applyAsByte(short s);
+		 
 	
-	
-	@Test
-	public void whenCreatesEmptyOptional_thenCorrect() {
-	    Optional<String> empty = Optional.empty();
-	    assertFalse(empty.isPresent());
-	    
-	   LOGGER.info("imprimir"); 
-	    
-	}
-	
+		
 }

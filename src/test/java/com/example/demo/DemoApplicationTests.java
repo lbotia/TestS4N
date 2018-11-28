@@ -3,7 +3,11 @@ package com.example.demo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -199,5 +203,78 @@ public class DemoApplicationTests {
 	    //assertFalse(is2017);
 	}
 	
+	/**
+	 * Prueba Interfaz
+	 */
+	
+	@Test
+	public void callInterfaceLambda() {
+		double res = operar(3, 2);
+		logger.info("Res -> " + res);
+		
+		
+	}
+	
+
+	
+	
+	public double operar(double x, double y){
+		pruebaUno pr = (n1,n2) -> n1*n2;
+		return pr.operar(x, y);
+		
+	}
+	
+//	@Test
+//	public void callByte(){
+//		
+//		short res = applyAsByte ((short) 2);
+//	}
+//	
+//	public short applyAsByte (short s) {
+//		
+//		//pruebaInterfaz pr = (short (32.7));
+//		//pruebaInterfaz pr = ((short) 2);
+//		//pruebaInterfaz pr = (x1) -> (byte) s *2 ;
+//		
+//		pruebaInterfaz pr = "ssss";
+//		return pr.applyAsByte(s);
+//		
+//	}
+	
+	@Test
+	public void testHashMap() {
+		
+		
+		Map<String, Integer> salaries = new HashMap<>();
+		salaries.put("John", 40000);
+		salaries.put("Freddy", 30000);
+		salaries.put("Samuel", 50000);
+		
+		//salaros sin modificar
+		
+		logger.info("salaros sin modificar");
+		
+		salaries.forEach((n,o) -> logger.info("clave : " + n + ", Valor: " + o));
+		 
+		salaries.replaceAll((name, oldValue) -> 
+		  name.equals("Freddy") ? oldValue : oldValue + 10000);
+		
+		//salarios modificados
+		
+		logger.info("salarios modificados");
+		
+		salaries.forEach((n,o) -> logger.info("clave : " + n + ", Valor: " + o));
+		
+		
+		//logger.info(name "" +);
+		
+		
+	}
+	
+	@Test 
+	public double squareLazy(Supplier<Double> lazyValue) {
+		
+	    return Math.pow(lazyValue.get(), 2);
+	}
 	
 }
