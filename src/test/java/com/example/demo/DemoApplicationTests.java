@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -324,9 +327,9 @@ public class DemoApplicationTests {
 	@Test
 	public void testFuntionHere() {
 		
-		Thread thread = new Thread(() -> System.out.println("Hello From Another Thread"));
+		Thread thread = new Thread(() -> logger.info("Hello From Another Thread"));
 		
-		logger.info("heredar -> "+thread);
+		
 		thread.start();
 		
 		
@@ -335,18 +338,135 @@ public class DemoApplicationTests {
 	}
 	
 	
-//	@Test
-//	public void callsqueryLazy() {
-//		double res = squareLazy(0.0);
-//		logger.info("Res -> " + res);
-//		
-//		
-//	}
-//	
-//	
-//	public double squareLazy(Supplier<Double> lazyValue = ()) {
-//	    return Math.pow(lazyValue.get(), 2);
-//	}
+	@Test
+	public void OperationTres() {
+		
+		List<Integer> values = Arrays.asList(3, 5, 8, 9, 12);
+		 
+		int sum = values.stream().reduce(0, (i1, i2) -> i1 + i2);
+		
+		logger.info("total de la suma --> "+ sum);
+		
+	}
 	
+	
+	
+	/**
+	 * Stream canalización de operación 
+	 */
+	@Test
+	public void stream() {
+		
+		List<String> myList =
+			    Arrays.asList("a1", "a2", "b1", "c2", "c1");
+
+			myList
+			    .stream()
+			    .filter(s -> s.startsWith("c"))
+			    .map(String::toUpperCase)
+			    .sorted()
+			    .forEach(System.out::println);
+			
+			logger.info("Stream -> " +myList);
+		
+	}
+	
+	/**
+	 * Tipos de array
+	 */
+	
+	public void tiposArroyos() {
+	
+	Arrays.asList("a1", "a2", "a3").stream().findFirst().ifPresent(System.out::println); 
+	
+	}
+	@Test
+	public void intStreamRange() {
+	IntStream.range(1, 4)
+    .forEach(System.out::println);
+		
+		
+	}
+	/**
+	 * operaciones de suma 
+	 */
+	@Test
+	public void average() {
+		
+		Arrays.stream(new int[] {1, 2, 3}).map(n -> 2 * n + 1).average().ifPresent(System.out::println);
+		
+	}
+
+	public void mapToInt() {
+		
+		Stream.of("a1", "a2", "a3").map(s -> s.substring(1)).mapToInt(Integer::parseInt).max().ifPresent(System.out::println);
+		
+		
+	}
+	@Test
+	
+	public void mapToObj() {
+		IntStream.range(1, 4).mapToObj(i -> "a" + i).forEach(System.out::println);
+	}
+	@Test
+	public void utilMapToIntToObj() {
+		
+		Stream.of(1.0, 2.0, 3.0).mapToInt(Double::intValue).mapToObj(i -> "a" + i).forEach(System.out::println);
+	}
+	
+	/**
+	 * Orden de procesamiento
+	 */
+	@Test
+	public void StreamOf() {
+		
+		Stream.of("d2", "a2", "b1", "b3", "c")
+	    .filter(s -> {
+	        //System.out.println("filter: " + s);
+	        
+	    	logger.info("filter" + s);
+	    	return true;
+	    });
+		
+	}
+	
+	@Test
+	public void streamForeach() {
+		
+		Stream.of("d2", "a2", "b1", "b3", "c")
+	    .filter(s -> {
+	        System.out.println("filter: " + s);
+	        return true;
+	    })
+	    .forEach(s -> logger.info("forEach: " + s));
+		
+		
+	}
+	
+	@Test
+	public void streamUpperCaseStartWith() {
+		
+		
+		Stream.of("d2", "a2", "b1", "b3", "c")
+	    .map(s -> {
+	        logger.info("map: " + s);
+	        return s.toUpperCase();
+	    })
+	    .anyMatch(s -> {
+	        logger.info("anyMatch: " + s);
+	        return s.startsWith("A");
+	    });
+		
+	}
+	
+	@Test
+	public void streamColeccion() {
+		
+		Collection<String> collection = Arrays.asList("a", "b", "c");
+		Stream<String> streamOfCollection = collection.stream();
+		
+		logger.info("stream coleccion " +streamOfCollection);
+		
+	}
 	
 }

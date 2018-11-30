@@ -5,9 +5,10 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public interface pruebaFuncionEspe {
-
-//	public double squareLazy(Supplier<Double> lazyValue) {
-//	    return Math.pow(lazyValue.get(), 2);
-//	}
+	
+	String method(String string);
+	
+	
+	
 	
 }
